@@ -1,18 +1,22 @@
-## Getting Started
+# Gestor de Reservas de Peluquería
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Mi solución al reto del curso Java AI Engineer de Dev Senior Code. 
+Consiste en una aplicación de consola en Java para gestionar las reservas de una peluquería.
 
-## Folder Structure
+## Requisitos
 
-The workspace contains two folders by default, where:
+- JDK 8 o superior.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Cómo Ejecutar la Aplicación
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Opción 1: Desde la Terminal (Recomendado)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+1. Abre una terminal en la raíz del proyecto.
+2. Compila el proyecto:
+   ```bash
+   javac -d bin src/*.java
+   ```
+3. Ejecuta la aplicación:
+   ```bash
+   java -cp bin App
+   ```
