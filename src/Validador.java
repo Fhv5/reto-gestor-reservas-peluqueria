@@ -43,7 +43,7 @@ public class Validador {
         } while (!esValido);
         return nombre;
     }
-
+    
     public static int leerOpcion(Scanner sc, String mensaje, String mensajeError, Predicate<Integer> validador) {
         int opcion = 0;
         boolean esValido = false;

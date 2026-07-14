@@ -1,7 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Operaciones {
-    static final int CUPO_MAX = 10;
+    static final int CUPO_MAX = 2;
 
     static final int PRECIO_CORTECABELLO = 25000;
     static final int PRECIO_TINTE = 60000;
@@ -56,27 +59,7 @@ public class Operaciones {
         }
         System.out.println("Reservas del dia:");
 
-        String leftAlignFormat = "| %-4d | %-24s | %-6s | %-18s|%n";
-        System.out.format("+------+--------------------------+--------+-------------------+%n");
-        System.out.format("| ID   | Nombre                   | Hora   | Servicio          |%n");
-        System.out.format("+------+--------------------------+--------+-------------------+%n");
-        
-        for (int i = 0; i < nReservas; i++) {
-            System.out.printf(leftAlignFormat, i + 1, nombres[i], horas[i] + ":00", servicioMapping(codsServicio[i]));
-        }
-        System.out.format("+------+--------------------------+--------+-------------------+%n");
-    }
-
-    private static String servicioMapping(int codServicio) {
-        String retVal = "";
-
-        switch (codServicio) {
-            case 1: retVal = "Corte de Cabello"; break;
-            case 2: retVal = "Tinte"; break;
-            case 3: retVal = "Manicure"; break;            
-        }
-
-        return retVal;
+        Utils.printReservas(i -> true);
     }
 
     public static void cancelar(Scanner sc) {
@@ -122,6 +105,53 @@ public class Operaciones {
         System.out.printf(leftAlignFormat, nReservas, "$ " + totalFacturado);
         
         System.out.format("+------------------+--------------------+%n");
+    }
+
+    public static void buscarPorCliente(Scanner sc) {
+        String nombre = Validador.leerNombre(sc, 
+            "Ingrese el nombre del cliente (-1 para cancelar): ", 
+            "El nombre ingresado no es válido.\n", 
+            Validador::nombreValido);
+
+        if (nombre.equals("-1")) return;
+
+        boolean encontrado = false;
+
+        for (int i = 0; i < nReservas; i++) {
+            if (nombre.equals(nombres[i])) {
+                encontrado = true;
+                break;
+            }
+        }
+        
+        if (!encontrado) {
+            System.out.println("No existen reservas para " + nombre + ".");
+            return;
+        }
+
+        Utils.printReservas(i -> Operaciones.nombres[i].equals(nombre));
+    }
+
+    public static String servicioMasPedido() {
+        
+        String[] servicios = ["Corte de cabello", "Tinte", "Manicure"];
+        int[] recurrencias = new int[3];
+
+        for (int i = 0; i < nReservas; i++) {
+            switch (codsServicio[i]) {
+                case 1: recurrencias[0]++; break;
+                case 2: recurrencias[1]++; break;
+                case 3: recurrencias[2]++; break;
+            }
+        }
+
+        int maxIndex = 0;
+        for (int i = 1; i < servicios.length; i++) {
+            if (recurrencias[i] > recurrencias[maxIndex])
+                maxIndex = i;
+        }
+
+        return servicios[maxIndex];
     }
     
 }

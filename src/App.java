@@ -15,7 +15,11 @@ public class App {
                 case 2: Operaciones.listar(); break;
                 case 3: Operaciones.cancelar(sc);; break;
                 case 4: Operaciones.reporte();; break;
-                case 5: exit = true; break;
+                case 5: Operaciones.buscarPorCliente(sc); break;
+                case 6: ; break;
+                case 7: ; break;
+                case 8: Operaciones.servicioMasPedido(); break;
+                case 9: exit = true; break;
                 default: System.out.println(ERROR_INPUT_MSG);
             }
         } while(!exit);
